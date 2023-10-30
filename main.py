@@ -5,8 +5,12 @@ import config
 
 from src.handlers.admin import admin
 from src.handlers.users import users
+from src.utils import MusicStatus
 
 from aiogram import Bot, Dispatcher
+
+
+STATE: MusicStatus = MusicStatus.SHUT
 
 
 async def main() -> None:

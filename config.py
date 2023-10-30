@@ -10,3 +10,4 @@ MAX_TRACKS_INLINE_KEYBORD = (
     if MAX_TRACKS_INLINE_KEYBORD is not None
     else MAX_TRACKS_INLINE_KEYBORD
 )
+DB_NAME = os.getenv("DB_NAME") if os.getenv("DB_NAME") is not None else ":memory:"

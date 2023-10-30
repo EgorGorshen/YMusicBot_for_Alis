@@ -1,4 +1,3 @@
-from inspect import trace
 import re
 from typing import Optional
 
@@ -28,7 +27,12 @@ async def add_track(message: Message) -> None:
         await message.answer("Введите запрос в формате [/add_track <name>]")
         return
 
-    request: str = match.group(2).strip()
+    request: str | None = match.group(2).strip()
+
+    if request == "":
+        await message.answer("Введите запрос в формате [/add_track <name>]")
+        return
+
     search_result = await client.find(request)
 
     if not search_result:
@@ -37,7 +41,9 @@ async def add_track(message: Message) -> None:
 
     if search_result.type_of_result == TypesOfSearchResults.TRACK:
         artists: str = " [" + ", ".join(search_result.artist_name_if_track) + "]"
-        text: str = search_result.result if search_result.result else request + artists
+        text: str = (
+            search_result.result if search_result.result else request
+        ) + artists
         await message.answer(
             text=text, reply_markup=TRACK_CONFIRMATION_KEYBOARD(search_result.id)
         )

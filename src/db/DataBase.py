@@ -208,8 +208,10 @@ CREATE TABLE IF NOT EXISTS alcohol (
         @db_log.log_function_call
         def vote_to_drink(self, alcohol_id: int):
             """
-            Добавляет голос за напиток
-            :param alcohol_id: id напитка
+            Добавляет напиток в БД
+            :param name: название напитка
+            :param strength: Крепкость
+            :param price: цена
             """
 
             self.cursor.execute(
@@ -219,9 +221,6 @@ CREATE TABLE IF NOT EXISTS alcohol (
 
         @db_log.log_function_call
         def list_of_alcohol(self):
-            """
-            Возвращает список алкоголя
-            """
             self.cursor.execute("SELECT * FROM alcohol")
             return self.cursor.fetchall()
 

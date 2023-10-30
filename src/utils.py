@@ -13,6 +13,12 @@ class TypesOfSearchResults(Enum):
     NONE = None
 
 
+class MusicStatus(Enum):
+    PLAYED = "PLAYED"
+    SHUT = "SHUT"
+    TOAST = "TOAST"
+
+
 async def get_type_of_result_and_title(result):
     if isinstance(result, Artist):
         return TypesOfSearchResults.ARTIST, result.name
