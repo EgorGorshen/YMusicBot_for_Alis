@@ -21,7 +21,7 @@ def _get_track_selection_keyboard(
         next_previous.append(
             types.InlineKeyboardButton(
                 text="<",
-                callback_data=f"track_selection_previous_{entity_id}_{from_}_{till}",
+                callback_data=f"track_selection_backward_{entity_id}_{from_}_{till}",
             )
         )
 
@@ -29,7 +29,7 @@ def _get_track_selection_keyboard(
         next_previous.append(
             types.InlineKeyboardButton(
                 text=">",
-                callback_data=f"track_selection_next_{entity_id}_{from_}_{till}",
+                callback_data=f"track_selection_forward_{entity_id}_{from_}_{till}",
             )
         )
 

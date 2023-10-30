@@ -113,14 +113,14 @@ async def track_confirmation(callback: CallbackQuery):
     await callback.message.edit_text("Название трека не найдено.")
 
 
-@users.callback_query(F.data.startswith("track_selection_next_"))
+@users.callback_query(F.data.startswith("track_selection_forward_"))
 @users_tel_log.log_function_call
 async def scroll_forward_track_page(callback: CallbackQuery):
     if not callback.data:
         return
 
     client = YMusic()
-    entity_id, till, from_ = list(map(int, callback.data.split("_")[-3:]))
+    entity_id, from_, till = list(map(int, callback.data.split("_")[-3:]))
 
     tracks_list = await client.get_artist_track(entity_id)
 
@@ -130,7 +130,31 @@ async def scroll_forward_track_page(callback: CallbackQuery):
     await callback.message.edit_text(
         text=callback.message.text,
         reply_markup=TRACK_SELECTION_KEYBOARD(
-            tracks_list, entity_id, from_, 2 * from_ - till
+            tracks_list, entity_id, till, 2 * till - from_
+        ),
+    )
+
+    return
+
+
+@users.callback_query(F.data.startswith("track_selection_backward_"))
+@users_tel_log.log_function_call
+async def scroll_backward_track_page(callback: CallbackQuery):
+    if not callback.data:
+        return
+
+    client = YMusic()
+    entity_id, from_, till = list(map(int, callback.data.split("_")[-3:]))
+
+    tracks_list = await client.get_artist_track(entity_id)
+
+    if not callback.message or not callback.message.text:
+        return
+
+    await callback.message.edit_text(
+        text=callback.message.text,
+        reply_markup=TRACK_SELECTION_KEYBOARD(
+            tracks_list, entity_id, 2 * from_ - till, from_
         ),
     )
 
