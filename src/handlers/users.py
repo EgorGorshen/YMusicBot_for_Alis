@@ -5,7 +5,6 @@ from typing import Optional
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import CallbackQuery, Message
-from yandex_music import tracks_list
 from config import MAX_TRACKS_INLINE_KEYBORD
 
 from src.api.YMusic import YMusic
